@@ -1,0 +1,9 @@
+RewriteEngine on
+RewriteRule ^$ index.php [NC]
+RewriteRule ^admin$ admin/index.php [NC]
+RewriteRule ^admin/dashboard/$ admin/src/dashboard2.php [NC]
+RewriteRule ^admin/dashboard/christians$ admin/src/christians.php [NC]
+RewriteRule ^admin/dashboard/calendar$ admin/src/calendar.php [NC]
+RewriteRule ^admin/dashboard/profile$ admin/src/profile.php [NC]
+RewriteRule ^admin/dashboard/logout$ admin/src/logout.php [NC]
+RewriteRule ^admin/dashboard/login$ admin/index.php [NC]
