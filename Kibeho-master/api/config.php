@@ -19,6 +19,8 @@ $resultCode = 0;
 
 $username = "";
 $password = "";
+
+$mak = "";
 $nameFirst = "";
 $nameLast = "";
 $name = "";
@@ -40,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $submit = mysqli_real_escape_string($connection, !empty($_POST['submit']) ? $_POST['submit'] : "");
     
+    $mak = mysqli_real_escape_string($connection, !empty($_POST['mak']) ? $_POST['mak'] : "");
     $nameFirst = mysqli_real_escape_string($connection, !empty($_POST['nameFirst']) ? $_POST['nameFirst'] : "");
     $nameLast = mysqli_real_escape_string($connection, !empty($_POST['nameLast']) ? $_POST['nameLast'] : "");
     $name = mysqli_real_escape_string($connection, isset($_POST['name']) && !empty($_POST['name']) ? $_POST['name'] : $nameFirst . " " . $nameLast);
@@ -65,6 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($username) && !empty($password)) {
         if (empty($account)) {
             $response = "Account Type required";
+            $resultCode = 0;
+        } else if (empty($mak)) {
+            $response = "Code required";
             $resultCode = 0;
         } else if (empty($nameFirst)) {
             $response = "First Name required";
@@ -120,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             $username = "";
             $password = "";
+            $mak = "";
             $nameFirst = "";
             $nameLast = "";
             $name = "";
@@ -158,8 +165,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // $password = alnEncrypt($password);
                     $sql = " INSERT INTO users 
-                                (`username`,  `password`,  `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
-                                ('$username', '$password', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
+                                (`username`,  `password`, `mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
+                                ('$username', '$password', '$mak', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
                     $resultRegister = $connection->query($sql);
                     
                     $sql = " SELECT * FROM users WHERE username='$username' and password='$password' ORDER BY id";
@@ -187,7 +194,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             
+                  // send massage
 
+
+                  if(isset($_POST["submit"])){
+                      
+                    $message = "Dear Sir/Madam, You have all welcome to church Here is the code to use" .$mak;
+                    $data=array("sender"=>'CMS', "recipients"=> $phone, "message"=> $message,);
+
+                    $url="https://www.intouchsms.co.rw/api/sendsms/.json";
+                    $data=http_build_query($data);
+                    $username="Gentille";
+                    $password="0786112482";
+
+                    $ch=curl_init();
+
+                    curl_setopt($ch,CURLOPT_URL,$url);
+                    curl_setopt($ch,CURLOPT_USERPWD,$username.":".$password);
+                    curl_setopt($ch,CURLOPT_POST,true);
+                    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+                    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+                    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+
+                    $result=curl_exec($ch);
+                    $httpcode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+                    curl_close($ch);
+
+                    if($httpcode == 200){
+                        echo "Message Sent!";
+                    } else {
+                        echo "Message Not Sent!";
+                    }
+                  }
             
             
         }
@@ -219,4 +258,3 @@ $femalecount="SELECT count(*) from users WHERE gender='Female'";
 $countMale=($connection->query($malecount)->fetch_array()[0]);
 $countFemale=($connection->query($femalecount)->fetch_array()[0]);
 $error='';
-?>

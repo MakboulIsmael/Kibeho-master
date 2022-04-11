@@ -1,7 +1,19 @@
 <?php
 include "api/config.php";
 ?>
+<?php
 
+use LDAP\ResultEntry;
+
+define("GREETING", "KBH-");
+function generateRandomString($length = 5)
+{
+    return substr(str_shuffle(str_repeat($x = '0123456789', ceil($length / strlen($x)))), 1, $length);
+}
+
+$mak = GREETING . generateRandomString();
+//echo $mak;
+?>
 <!DOCTYPE html>
 <html>
 
@@ -32,11 +44,11 @@ include "api/config.php";
                     </div>
                     <span style="font-size: 11px;">
 
-                Powered by<a href="http://calmgeeks.com"> Calmgeeks </a>&copy; 2021
+                        Powered by<a href="http://calmgeeks.com"> Calmgeeks </a>&copy; 2021
                     </span>
 
                 </div>
-                <form action="" method="post">
+                <form action="" method="POST">
                     <h3>KIBEHO SANCTUARY N.J <br> Attendee Registration</h3>
                     <div class="form-group" style="display: none;">
                         *<i class="zmdi zmdi-account-circle"></i>
@@ -45,6 +57,9 @@ include "api/config.php";
                         <input id="password" name="password" type="password" placeholder="Password" class="form-control" disabled value="<?php echo ""; ?>">
                     </div>
                     <div class="form-group">
+                        *<i class="zmdi zmdi-account"></i>
+                        <input id="mak" name="mak" type="text" readonly class="form-control" value="<?php echo $mak; ?>">
+
                         *<i class="zmdi zmdi-account"></i>
                         <input id="nameFirst" name="nameFirst" type="text" placeholder="First Name (Izina rya mbere)" class="form-control" value="<?php echo $nameFirst; ?>">
                         <i class="zmdi zmdi-account"></i>*
@@ -75,7 +90,7 @@ include "api/config.php";
                         *<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
                         <select name="service" id="service" class="form-control" onclick="serviceForm();">
                             <option value="" disabled <?php echo $service == "" ? "selected" : ""; ?>>Service (Hitamo Misa)</option>
-                            <option id="service-8" value="" <?php echo $service == '7:00 AM' || $service=='8:00 AM' ? "selected" : ""; ?>></option>
+                            <option id="service-8" value="" <?php echo $service == '7:00 AM' || $service == '8:00 AM' ? "selected" : ""; ?>></option>
                             <option id="service-11" value="" <?php echo $service == '11:00 AM' || $service == '10:00 AM' ? "selected" : ""; ?>></option>
                             <option id="service-16" value="" <?php echo $service == '4:00 PM' || $service == '1:00 PM' ? "selected" : ""; ?>></option>
                         </select>
@@ -374,9 +389,11 @@ include "api/config.php";
                         </select>
                     </div>
                     <div class="text-center" style="color: #FFFFFF; background-color: <?php echo $resultCode === 0 ? '#cc0000' : '#03a40b'; ?>; text-align: center; font-size: 20px; border-radius: 10px;"><?php echo $response; ?></div>
-                    <button id="submit" name="submit" value="<?php echo $resultCode; ?>" type="submit" style="width: 200px; padding: 5px;"> <?php echo ($resultCode === 1 ? "Request your Attendance Card" : $resultCode === 2) ? "Register Another" : "Register as Attendee"; ?>
-                        <i class="zmdi zmdi-arrow-right"></i>
-                    </button>
+                    
+                        <button id="submit" name="submit" value="<?php echo $resultCode; ?>" type="submit" style="width: 200px; padding: 5px;"> <?php echo ($resultCode === 1 ? "Request your Attendance Card" : $resultCode === 2) ? "Register Another" : "Register as Attendee"; ?>
+                            <i class="zmdi zmdi-arrow-right"></i>
+                        </button>
+                
                 </form>
 
                 <div class="form-group">
@@ -467,7 +484,7 @@ include "api/config.php";
             }
         }
         // return [true];
-    
+
 
     });
 
