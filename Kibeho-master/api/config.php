@@ -173,8 +173,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $result = $connection->query($sql);
                     if ($result != null && $result->num_rows > 0) {
                         
+                        header('location: index.php');
                         $response = "Attendee registered successfully";
                         $resultCode = 1;
+                        
                         
                         while ($row = $result->fetch_assoc()) {
                             if (!isset($isLogout) || $isLogout === true) {
@@ -199,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                   if(isset($_POST["submit"])){
                       
-                    $message = "Dear Sir/Madam, You have all welcome to church Here is the code to use" .$mak;
+                    $message = "Dear Sir/Madam, You have all welcome to church Here is the code to use  " .$mak;
                     $data=array("sender"=>'CMS', "recipients"=> $phone, "message"=> $message,);
 
                     $url="https://www.intouchsms.co.rw/api/sendsms/.json";
