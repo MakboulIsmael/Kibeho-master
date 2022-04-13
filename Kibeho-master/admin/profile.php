@@ -68,56 +68,75 @@ if (!isset($_SESSION['loggedin'])) {
                 </div>
               </div>
             </a>
-            <a href="logout.php">
+            <a href="setting.php">
               <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                <p style="margin-top: 30px; font-size: 16px; color: white;">Sign Out</p>
+                <p style="margin-top: 30px; font-size: 16px; color: white;">Settings</p>
                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                 </div>
               </div>
             </a>
           </div>
 
-          <?php
+          <!--Container-->
+          <div class="container w-full mt-5 mx-auto px-2" style="margin-top: 100px; margin-left: 20px">
 
-          //
+            <!--Card-->
+            <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-xl shadow-lg bg-white">
 
-          
-          @$id = $_GET['id'];
-          $sql = "SELECT * FROM admin where id= '$id'";
-          $result = $connection->query($sql);
-          if ($result->num_rows > 0) {
-            // output data of each row
-          }
-          ?>
-          <div class="bg-white mt-5 rounded-xl shadow-lg" style="margin-top: 60px; margin-left: 10px">
-            <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-              <div class="max-w-3xl mx-auto">
+              <table id="example" border="2" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <thead>
 
-                <form action="authenticate.php" method="post" class="space-y-8 divide-y divide-gray-200 ">
-                  <div class="space-y-8 divide-y divide-gray-200">
-                    <h3>Update Your Profile</h3>
+                  <tr>
+                    <th data-priority="1">Id</th>
+                    <th data-priority="2">USERTYPE</th>
+                    <th data-priority="3">EMAIL</th>
+                    <th data-priority="4">PASSWORD</th>
+                    <th class='p-2' colspan='1'> Actions </th>
 
-                    
-                    <div class="form-group">
-                      *<i class="zmdi zmdi-email"></i>
-                      <input id="email" name="email" type="email" placeholder="Email Address (Imeli)" class="form-control" value="<?php echo $email ?>">
-                      <i class="zmdi zmdi-email"></i>*
-                      <i class="zmdi zmdi-key"></i>*
-                      <input id="password" name="password" type="password" placeholder="Password" class="form-control " value="<?php echo $password ?>">
-                      *<i class="zmdi zmdi-key"></i>
-                    </div>
-                      <div>
-                        <button type="submit" class="border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                          Save Data
-                        </button>
-                      </div>
-                </form>
-              </div>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $sql = "SELECT * FROM admin";
+                  $result = $connection->query($sql);
+                  if ($result->num_rows > 0) {
+                    // output data of each row
+                    while ($data = $result->fetch_assoc()) {
+                  ?>
+                      <tr>
+                        <td><?php echo $data['id']; ?></td>
+                        <td><?php echo $data['usertype']; ?></td>
+                        <td><?php echo $data['email']; ?></td>
+                        <td><?php echo $data['password']; ?></td>
+                        <td><?php echo "<a href=\"update-user.php?id=$data[id]\"><center>📝</center></a>" ?></td>
 
+                      </tr>
+                  <?php
+                    }
+                  } else {
+                    echo "0 results";
+                  }
+                  ?>
 
-
+                </tbody>
+              </table>
             </div>
+            <!--/Card-->
           </div>
+
+          <script>
+            $(document).ready(function() {
+
+              var table = $('#example').DataTable({
+                  responsive: true,
+                  dom: 'Bfrtip',
+                  buttons: ['excel', 'pdf']
+                })
+                .columns.adjust()
+                .responsive.recalc();
+            });
+          </script>
+
         </div>
       </div>
     </div>

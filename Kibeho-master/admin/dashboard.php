@@ -68,9 +68,9 @@ if (!isset($_SESSION['loggedin'])) {
                 </div>
               </div>
             </a>
-            <a href="logout.php">
+            <a href="setting.php">
               <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                <p style="margin-top: 30px; font-size: 16px; color: white;">Sign Out</p>
+                <p style="margin-top: 30px; font-size: 16px; color: white;">Settings</p>
                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                 </div>
               </div>

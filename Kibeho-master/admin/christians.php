@@ -68,13 +68,13 @@ if (!isset($_SESSION['loggedin'])) {
 								</div>
 							</div>
 						</a>
-						<a href="logout.php">
-							<div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-								<p style="margin-top: 30px; font-size: 16px; color: white;">Sign Out</p>
-								<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
-								</div>
-							</div>
-						</a>
+						<a href="setting.php">
+                            <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
+                                <p style="margin-top: 30px; font-size: 16px; color: white;">Settings</p>
+                                <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
+                                </div>
+                            </div>
+                        </a>
 					</div>
 
 					<!--Container-->
@@ -82,8 +82,14 @@ if (!isset($_SESSION['loggedin'])) {
 
 						<!--Card-->
 						<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-xl shadow-lg bg-white">
+							<table id="example" border="1" style="width:100%; ">
+								<tr>
+									<th style="width: 800px;"><a href="../add-christian.php"><button type="" name="" value="" style=" width: 600px;">+ Add New</button></a></th>
+								</tr>
+							</table>
 							<table id="example" border="2" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
 								<thead>
+
 									<tr>
 										<th data-priority="1">Name</th>
 										<th data-priority="2">Phone</th>
@@ -91,6 +97,7 @@ if (!isset($_SESSION['loggedin'])) {
 										<th data-priority="4">Date</th>
 										<th data-priority="5">Service</th>
 										<th data-priority="6">Diocese</th>
+										<th class='p-2' colspan='2'> Actions </th>
 
 									</tr>
 								</thead>
@@ -109,6 +116,9 @@ if (!isset($_SESSION['loggedin'])) {
 												<td><?php echo $data['date']; ?></td>
 												<td><?php echo $data['service']; ?></td>
 												<td><?php echo $data['diocese']; ?></td>
+												<td><?php echo "<a href=\"update-christian.php?id=$data[id]\">📝</a>" ?></td>
+												<td><?php echo "<a href=\"delete-christian.php?id=$data[id]\"onClick =\"return (are you sure want to)\">⚔" ?></td>
+
 											</tr>
 									<?php
 										}
@@ -136,7 +146,7 @@ if (!isset($_SESSION['loggedin'])) {
 						});
 					</script>
 
-					
+
 				</div>
 			</div>
 
