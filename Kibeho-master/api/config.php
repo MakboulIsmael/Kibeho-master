@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cell = mysqli_real_escape_string($connection, !empty($_POST['cell']) ? $_POST['cell'] : "");
     $village = mysqli_real_escape_string($connection, !empty($_POST['village']) ? $_POST['village'] : "");
     $username = mysqli_real_escape_string($connection, !empty($_POST['username']) ? $_POST['username'] : $name . "-" . $phone . "-" . $gender);
-    $password = mysqli_real_escape_string($connection, !empty($_POST['password']) ? $_POST['password'] : (!empty($phone) ? $phone : "kibeho"));
+    $password = mysqli_real_escape_string($connection, !empty($_POST['password']) ? $_POST['password'] : (!empty($mak) ? $mak : "kibeho"));
 
 
     

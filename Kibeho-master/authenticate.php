@@ -19,14 +19,14 @@ if ( !isset($_POST['email'], $_POST['password']) ) {
 }
 
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $con->prepare('SELECT id, usertype, password FROM `admin` WHERE email = ?')) {
+if ($stmt = $con->prepare('SELECT id, password FROM `users` WHERE email = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['email']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
 	$stmt->store_result();
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $usertype, $password);
+        $stmt->bind_result($id, $password);
         $stmt->fetch();
         // Account exists, now we verify the password.
         // Note: remember to use password_hash in your registration file to store the hashed passwords.
@@ -39,7 +39,7 @@ if ($stmt = $con->prepare('SELECT id, usertype, password FROM `admin` WHERE emai
             $_SESSION['id'] = $id;
             $_SESSION['usertype'] = $usertype;
             //Sending the user to his appropriate page
-            if($_SESSION['usertype'] == 'admin'){
+            if($_SESSION['name'] == $_POST['email']){
                 header('Location: admin/dashboard.php');
             }
         } else {

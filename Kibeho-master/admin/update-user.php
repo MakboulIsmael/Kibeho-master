@@ -53,7 +53,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </a>
                         <a href="christians.php">
                             <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                                <p style="margin-top: 30px; font-size: 16px; color: white;">Christians</p>
+                                <p style="margin-top: 30px; font-size: 16px; color: white;">Attendence</p>
                                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                                 </div>
                             </div>
@@ -86,44 +86,65 @@ if (!isset($_SESSION['loggedin'])) {
 
                             if (isset($_POST['update'])) {
                                 $id = $_POST['id'];
-                                $usertype = $_POST['usertype'];
+                                $mak = $_POST['mak'];
+                                $name = $_POST['name'];
+                                $phone = $_POST['phone'];
                                 $email = $_POST['email'];
-                                $password = $_POST['password'];
+                                $gender = $_POST['gender'];
+                                $country = $_POST['country'];
 
-                                $sql = "UPDATE admin set usertype='$usertype',email='$email',password='$password' WHERE id=$id";
+                                $sql = "UPDATE users set mak='$mak',name='$name',phone='$phone',email='$email',gender='$gender',country='$counrty' WHERE id=$id";
                                 $query = $connection->query($sql);
-                                echo "<script>alert('Data Updated Successfully!'); window.location='profile.php'</script>";
+                                echo "<script>alert('Data Updated Successfully!'); window.location='christians.php'</script>";
                             }
                             @$id = $_GET['id'];
-                            $select = $connection->query("SELECT * FROM admin WHERE id='$id'");
+                            $select = $connection->query("SELECT * FROM users WHERE id='$id'");
                             while ($data = $select->fetch_assoc()) {
                                 $id = $data['id'];
-                                $usertype = $data['usertype'];
+                                $mak = $data['mak'];
+                                $name = $data['name'];
+                                $phone = $data['phone'];
                                 $email = $data['email'];
-                                $password = $data['password'];
+                                $gender = $data['gender'];
+                                $country = $data['country'];
                             }
                             ?>
                             <table border="2" style="margin-top: 120px; margin-left: 150px">
-                                <form action="update-user.php" method="POST">
+                                <form action="update-christian.php" method="POST">
 
                                     <tr>
-                                        <th>USER-ID</th>
+                                        <th>CHRISTIAN ID</th>
                                         <td><input type="text" readonly name="id" placeholder="ID~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $id ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>USERTYPE</th>
-                                        <td><input type="text" name="usertype" placeholder="USERTYPE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $usertype ?>"></td>
+                                        <th>ATTENDENCE CODE</th>
+                                        <td><input type="text" name="mak" readonly placeholder="ATTENDENCE CODE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $mak ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>EMAIL</th>
+                                        <th>FULL NAMES</th>
+                                        <td><input type="text" name="name" placeholder="Full NAMES~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $name ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>PHONE_NUM</th>
+                                        <td><input type="text" name="phone" placeholder="Telephone~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $phone ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*EMAIL*</th>
                                         <td><input type="text" name="email" placeholder="EMAIL~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $email ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>PASSWORD</th>
-                                        <td><input type="text" name="password" placeholder="PASSWORD~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $password ?>"></td>
+                                        <th>GENDER</th>
+                                        <td><input type="text" name="gender" placeholder="Gender~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $gender ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*COUNTRTY*</th>
+                                        <td><input type="text" name="country" placeholder="COUNTRY~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $country ?>"></td>
                                     </tr>
 
                                     </tr>

@@ -18,13 +18,11 @@ $response = "";
 $resultCode1 = 0;
 
 $username = "";
-$password = "";
 
 $mak = "";
 $nameFirst = "";
 $nameLast = "";
 $name = "";
-$phone = "";
 $phone = "";
 $email = "";
 $gender = "";
@@ -60,8 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cell = mysqli_real_escape_string($connection, !empty($_POST['cell']) ? $_POST['cell'] : "");
     $village = mysqli_real_escape_string($connection, !empty($_POST['village']) ? $_POST['village'] : "");
     $username = mysqli_real_escape_string($connection, !empty($_POST['username']) ? $_POST['username'] : $name . "-" . $phone . "-" . $gender);
-    $password = mysqli_real_escape_string($connection, !empty($_POST['password']) ? $_POST['password'] : (!empty($phone) ? $phone : "kibeho"));
-
+    
 
     
     
@@ -125,7 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resultCode1 = 0;
             
             $username = "";
-            $password = "";
             $mak = "";
             $nameFirst = "";
             $nameLast = "";
@@ -165,8 +161,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // $password = alnEncrypt($password);
                     $sql = " INSERT INTO users 
-                                (`username`,  `password`, `mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
-                                ('$username', '$password', '$mak', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
+                                (`username`, `mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
+                                ('$username', '$mak', '$account', '$nameFirst', '$nameLast', '$name', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
                     $resultRegister = $connection->query($sql);
                     
                     $sql = " SELECT * FROM users WHERE username='$username' and password='$password' ORDER BY id";

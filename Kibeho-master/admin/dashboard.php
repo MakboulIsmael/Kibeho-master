@@ -53,7 +53,7 @@ if (!isset($_SESSION['loggedin'])) {
             </a>
             <a href="christians.php">
               <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                <p style="margin-top: 30px; font-size: 16px; color: white;">Christians</p>
+                <p style="margin-top: 30px; font-size: 16px; color: white;">Attendence</p>
                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                 </div>
               </div>

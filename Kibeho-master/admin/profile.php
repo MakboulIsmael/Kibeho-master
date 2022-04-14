@@ -53,7 +53,7 @@ if (!isset($_SESSION['loggedin'])) {
             </a>
             <a href="christians.php">
               <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                <p style="margin-top: 30px; font-size: 16px; color: white;">Christians</p>
+                <p style="margin-top: 30px; font-size: 16px; color: white;">Attendence</p>
                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                 </div>
               </div>
@@ -88,16 +88,20 @@ if (!isset($_SESSION['loggedin'])) {
 
                   <tr>
                     <th data-priority="1">Id</th>
-                    <th data-priority="2">USERTYPE</th>
-                    <th data-priority="3">EMAIL</th>
-                    <th data-priority="4">PASSWORD</th>
-                    <th class='p-2' colspan='1'> Actions </th>
+                    <th data-priority="2">Attended-code</th>
+                    <th data-priority="3">Names</th>
+                    <th data-priority="4">Phone-Number</th>
+                    <th data-priority="2">Email</th>
+                    <th data-priority="3">Gender</th>
+                    <th data-priority="4">Country</th>
+                    <th class='p-2' colspan='2'> Actions </th>
 
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  $sql = "SELECT * FROM admin";
+                  $id = $_SESSION['id'];
+                  $sql = "SELECT * FROM users WHERE id = '{$id}'";
                   $result = $connection->query($sql);
                   if ($result->num_rows > 0) {
                     // output data of each row
@@ -105,10 +109,14 @@ if (!isset($_SESSION['loggedin'])) {
                   ?>
                       <tr>
                         <td><?php echo $data['id']; ?></td>
-                        <td><?php echo $data['usertype']; ?></td>
+                        <td><?php echo $data['mak']; ?></td>
+                        <td><?php echo $data['name']; ?></td>
+                        <td><?php echo $data['phone']; ?></td>
                         <td><?php echo $data['email']; ?></td>
-                        <td><?php echo $data['password']; ?></td>
+                        <td><?php echo $data['gender']; ?></td>
+                        <td><?php echo $data['country']; ?></td>
                         <td><?php echo "<a href=\"update-user.php?id=$data[id]\"><center>📝</center></a>" ?></td>
+                        <td><?php echo "<a href=\"v-card.php?id=$data[id]\"><center>Card</center></a>" ?></td>
 
                       </tr>
                   <?php

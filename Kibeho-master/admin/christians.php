@@ -5,8 +5,8 @@ include_once("../api/layout.php");
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: ..');
-	exit;
+  header('Location: ..');
+  exit;
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ if (!isset($_SESSION['loggedin'])) {
 					</span>
 				</div>
 				<div>
-					<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-bottom: none; border-width: 1.5px; width: 560px; height: 20px; margin-left: 32px; text-align: center; margin-top: 20px">
+					<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-bottom: none; border-width: 1.5px; width: 560px; height: 20px; margin-left: 70px; text-align: center; margin-top: 20px">
 						<a href="dashboard.php">
 							<div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 8px; text-align: center; margin-top: 8px">
 								<p style="margin-top: 30px; font-size: 16px; color: white;">Dashboard</p>
@@ -53,14 +53,14 @@ if (!isset($_SESSION['loggedin'])) {
 						</a>
 						<a href="christians.php">
 							<div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-								<p style="margin-top: 30px; font-size: 16px; color: white;">Christians</p>
+								<p style="margin-top: 30px; font-size: 16px; color: white;">Attendence</p>
 								<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
 								</div>
 							</div>
 						</a>
 					</div>
 
-					<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-bottom: none; border-width: 1.5px; width: 560px; height: 20px; margin-left: 32px; text-align: center; margin-top: 90px">
+					<div class="" style=" border: solid; background-color: white; border-radius: 10px; border-bottom: none; border-width: 1.5px; width: 560px; height: 20px; margin-left: 70px; text-align: center; margin-top: 90px">
 						<a href="profile.php">
 							<div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 8px; text-align: center; margin-top: 8px">
 								<p style="margin-top: 30px; font-size: 16px; color: white;">Profile</p>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['loggedin'])) {
 					</div>
 
 					<!--Container-->
-					<div class="container w-full mt-5 mx-auto px-2" style="margin-top: 100px; margin-left: 20px">
+					<div class="container w-full mt-5 mx-auto px-2" style="margin-top: 100px; margin-left: 6px">
 
 						<!--Card-->
 						<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-xl shadow-lg bg-white">
@@ -91,31 +91,34 @@ if (!isset($_SESSION['loggedin'])) {
 								<thead>
 
 									<tr>
-										<th data-priority="1">Name</th>
-										<th data-priority="2">Phone</th>
-										<th data-priority="3">Gender</th>
-										<th data-priority="4">Date</th>
+										<th data-priority="1">Attendence-code</th>
+										<th data-priority="1">Information</th>
+										<th data-priority="1">Email</th>
 										<th data-priority="5">Service</th>
 										<th data-priority="6">Diocese</th>
+										<th data-priority="1">Counrty</th>
+										<th data-priority="5">Registed-Time</th>
 										<th class='p-2' colspan='2'> Actions </th>
 
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$sql = "SELECT * FROM users";
+									$email = $_SESSION['name'];
+									$sql = "SELECT * FROM users WHERE email = '{$email}'";
 									$result = $connection->query($sql);
 									if ($result->num_rows > 0) {
 										// output data of each row
 										while ($data = $result->fetch_assoc()) {
 									?>
 											<tr>
-												<td><?php echo $data['name']; ?></td>
-												<td><?php echo $data['phone']; ?></td>
-												<td><?php echo $data['gender']; ?></td>
-												<td><?php echo $data['date']; ?></td>
+												<td><?php echo $data['mak']; ?></td>
+												<td><?php echo $data['username']; ?></td>
+												<td><?php echo $data['email']; ?></td>
 												<td><?php echo $data['service']; ?></td>
 												<td><?php echo $data['diocese']; ?></td>
+												<td><?php echo $data['country']; ?></td>
+												<td><?php echo $data['timeCreated']; ?></td>
 												<td><?php echo "<a href=\"update-christian.php?id=$data[id]\">📝</a>" ?></td>
 												<td><?php echo "<a href=\"delete-christian.php?id=$data[id]\"onClick =\"return (are you sure want to)\">⚔" ?></td>
 

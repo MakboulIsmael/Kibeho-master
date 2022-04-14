@@ -53,7 +53,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </a>
                         <a href="christians.php">
                             <div class="" style=" border: solid; background-color:#0A5A97; border-radius: 10px; border-width: 1.5px; width: 260px; height: 80px; margin-left: 290px; text-align: center; margin-top: -80px">
-                                <p style="margin-top: 30px; font-size: 16px; color: white;">Christians</p>
+                                <p style="margin-top: 30px; font-size: 16px; color: white;">Attendence</p>
                                 <div class="" style=" border: solid; background-color: white; border-radius: 10px; border-width: 1.5px; width: 260px; height: 40px; margin-left: -1.5px; text-align: center; border-top: none">
                                 </div>
                             </div>
@@ -86,14 +86,23 @@ if (!isset($_SESSION['loggedin'])) {
 
                             if (isset($_POST['update'])) {
                                 $id = $_POST['id'];
-                                $name = $_POST['name'];
+                                $mak = $_POST['mak'];
+                                $nameFirst = $_POST['nameFirst'];
                                 $phone = $_POST['phone'];
+                                $email = $_POST['email'];
                                 $gender = $_POST['gender'];
                                 $date = $_POST['date'];
                                 $service = $_POST['service'];
                                 $diocese = $_POST['diocese'];
+                                $country = $_POST['country'];
+                                $province = $_POST['province'];
+                                $sector = $_POST['sector'];
+                                $cell = $_POST['cell'];
+                                $village = $_POST['village'];
+                                $timeCreated = $_POST['timeCreated'];
+                                $timeEdited = $_POST['timeEdited'];
 
-                                $sql = "UPDATE users set name='$name',phone='$phone',gender='$gender',date='$date',service='$service',diocese='$diocese' WHERE id=$id";
+                                $sql = "UPDATE users set mak='$mak',nameFirst='$nameFirst',nameLast='$nameLast',phone='$phone',email='$email',gender='$gender',date='$date',service='$service',diocese='$diocese',country='$country',province='$province',district='$district',sector='$sector',cell='$cell',village='$village',timeCreated='$timeCreated',timeEdited='$timeEdited' WHERE id=$id";
                                 $query = $connection->query($sql);
                                 echo "<script>alert('Data Updated Successfully!'); window.location='christians.php'</script>";
                             }
@@ -101,50 +110,115 @@ if (!isset($_SESSION['loggedin'])) {
                             $select = $connection->query("SELECT * FROM users WHERE id='$id'");
                             while ($data = $select->fetch_assoc()) {
                                 $id = $data['id'];
-                                $name = $data['name'];
+                                $mak = $data['mak'];
+                                $nameFirst = $data['nameFirst'];
+                                $nameLast = $data['nameLast'];
                                 $phone = $data['phone'];
+                                $email = $data['email'];
                                 $gender = $data['gender'];
                                 $date = $data['date'];
                                 $service = $data['service'];
                                 $diocese = $data['diocese'];
+                                $country = $data['country'];
+                                $province = $data['province'];
+                                $sector = $data['sector'];
+                                $cell = $data['cell'];
+                                $village = $data['village'];
+                                $timeCreated = $data['timeCreated'];
+                                $timeEdited = $data['timeEdited'];
                             }
                             ?>
                             <table border="2" style="margin-top: 120px; margin-left: 150px">
                                 <form action="update-christian.php" method="POST">
 
                                     <tr>
-                                        <th>EMPLOYEE ID</th>
+                                        <th>CHRISTIAN ID</th>
                                         <td><input type="text" readonly name="id" placeholder="ID~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $id ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>FULL NAMES</th>
-                                        <td><input type="text" name="name" placeholder="Full NAMES~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $name ?>"></td>
+                                        <th>ATTENDENCE-CODE</th>
+                                        <td><input type="text" readonly name="mak" placeholder="ATTENDENCE-CODE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $mak ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>PHONE_NUM</th>
-                                        <td><input type="text" name="phone" placeholder="Telephone~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $phone ?>"></td>
+                                        <th>FIRSTNAME</th>
+                                        <td><input type="text" name="nameFirst" placeholder="FIRSTNAME~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $nameFirst ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>GENDER</th>
-                                        <td><input type="text" name="gender" placeholder="Gender~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $gender ?>"></td>
+                                        <th>LASTNAME</th>
+                                        <td><input type="text" name="nameLast" placeholder="LASTNAME~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $nameLast ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>*DATE*</th>
-                                        <td><input type="text" name="date" placeholder="DATE~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $date ?>"></td>
+                                        <th>*PHONE-NUMBER*</th>
+                                        <td><input type="text" name="phone" placeholder="PHONE-NUMBER~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $phone ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>*SERVICE*</th>
+                                        <th>*EMAIL*</th>
+                                        <td><input type="text" name="email" placeholder="EMAIL~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $email ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*GENDER*</th>
+                                        <td><input type="text" name="gender" placeholder="GENDER~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $gender ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>DATE</th>
+                                        <td><input type="text" name="date" placeholder="DATE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $date ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>SERVICE</th>
                                         <td><input type="text" name="service" placeholder="SERVICE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $service ?>"></td>
                                     </tr>
 
                                     <tr>
-                                        <th>*diocese*</th>
-                                        <td><input type="text" name="diocese" placeholder="DIOCESE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $diocese ?>"></td>
+                                        <th>DIOCESE</th>
+                                        <td><input type="text" name="diocese" placeholder="DIOCESE~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $diocese ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>COUNTRY</th>
+                                        <td><input type="text" name="country" placeholder="COUNTRY~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $country ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*PROVINCE*</th>
+                                        <td><input type="text" name="province" placeholder="PROVINCE~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $province ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*DISTRICT*</th>
+                                        <td><input type="text" name="district" placeholder="DISTRICT~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $district ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*SECTOR*</th>
+                                        <td><input type="text" name="sector" placeholder="SECTOR~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $sector ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>CELL</th>
+                                        <td><input type="text" name="cell" placeholder="CELL~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $country ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*VILLAGE*</th>
+                                        <td><input type="text" name="village" placeholder="VILLAGE~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $village ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*REGISTED-TIME*</th>
+                                        <td><input type="text" name="timeCreated" placeholder="REGISTED-TIME~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $timeCreated ?>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>*EDITED-TIME*</th>
+                                        <td><input type="text" name="timeEdited" placeholder="EDITED-TIME~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $timeEdited ?>"></td>
                                     </tr>
                                     </tr>
                             </table>
