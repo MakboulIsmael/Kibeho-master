@@ -1,4 +1,17 @@
 <?php
+$title = "Admin Dashboard - CalmGeeks";
+
+include_once("layout.php");
+@session_start();
+$userid = $_SESSION["id"];
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: ..');
+  exit;
+}
+?>
+
+<?php
 
 $serverName = "127.0.0.1";
 // $serverUsername = "calmgnjh_kibehosanctuarynj";
@@ -18,15 +31,13 @@ $response = "";
 $resultCode = 0;
 
 $username = "";
-$password = "";
 
 $mak = "";
 $nameFirst = "";
 $nameLast = "";
 $name = "";
 $phone = "";
-$phone = "";
-$email = "";
+$userid = "";
 $gender = "";
 $date = "";
 $service = "";
@@ -48,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = mysqli_real_escape_string($connection, isset($_POST['name']) && !empty($_POST['name']) ? $_POST['name'] : $nameFirst . " " . $nameLast);
     $account = mysqli_real_escape_string($connection, !empty($_POST['account']) ? $_POST['account'] : "Christian");
     $phone = mysqli_real_escape_string($connection, !empty($_POST['phone']) ? $_POST['phone'] : "");
-    $email = mysqli_real_escape_string($connection, !empty($_POST['email']) ? $_POST['email'] : "");
+    $userid = mysqli_real_escape_string($connection, !empty($_POST['userid']) ? $_POST['userid'] : "");
     $gender = mysqli_real_escape_string($connection, !empty($_POST['gender']) ? $_POST['gender'] : "");
     $date = mysqli_real_escape_string($connection, !empty($_POST['date']) ? $_POST['date'] : "");
     $service = mysqli_real_escape_string($connection, !empty($_POST['service']) ? $_POST['service'] : "");
@@ -60,12 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cell = mysqli_real_escape_string($connection, !empty($_POST['cell']) ? $_POST['cell'] : "");
     $village = mysqli_real_escape_string($connection, !empty($_POST['village']) ? $_POST['village'] : "");
     $username = mysqli_real_escape_string($connection, !empty($_POST['username']) ? $_POST['username'] : $name . "-" . $phone . "-" . $gender);
-    $password = mysqli_real_escape_string($connection, !empty($_POST['password']) ? $_POST['password'] : (!empty($mak) ? $mak : "kibeho"));
-
+   
 
     
     
-    if (!empty($username) && !empty($password)) {
+    if (!empty($username)) {
         if (empty($account)) {
             $response = "Account Type required";
             $resultCode = 0;
@@ -84,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if (empty($phone)) {
             $response = "Phone Number required";
             $resultCode = 0;
-        } else if (false && empty($email)) {
-            $response = "Email Address required";
+        } else if (empty($userid)) {
+            $response = "User id required";
             $resultCode = 0;
         } else if (empty($gender)) {
             $response = "Gender required";
@@ -125,13 +135,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resultCode = 0;
             
             $username = "";
-            $password = "";
             $mak = "";
             $nameFirst = "";
             $nameLast = "";
             $name = "";
             $phone = "";
-            $email = "";
+            $userid = "";
             $gender = "";
             $date = "";
             $service = "";
@@ -165,16 +174,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // $password = alnEncrypt($password);
                     $sql = " INSERT INTO users 
-                                (`username`,  `password`, `mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
-                                ('$username', '$password', '$mak', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
+                                (`mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `userid`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
+                                ('$mak', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$userid', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
                     $resultRegister = $connection->query($sql);
                     
-                    $sql = " SELECT * FROM users WHERE username='$username' and password='$password' ORDER BY id";
+                    $sql = " SELECT * FROM users WHERE username='$username' ORDER BY id";
                     $result = $connection->query($sql);
                     if ($result != null && $result->num_rows > 0) {
                         
-                        header('location: index.php');
+                        
                         $response = "Attendee registered successfully";
+                        header('location: ../admin/christians.php');
                         $resultCode = 1;
                         
                         
@@ -236,10 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($username)) {
             $response = "Username required";
             $resultCode = 0;
-        } else if (empty($password)) {
-            $response = "Password required";
-            $resultCode = 0;
-        } else {
+        }else {
             $response = "Username and Password required";
             $resultCode = 0;
         }

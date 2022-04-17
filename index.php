@@ -1,3 +1,6 @@
+<?php
+include "api/config.php";
+?>
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +36,7 @@
                     </span>
 
                 </div>
-                <form action="" method="post">
+                <form action="authenticate.php" method="post">
                     <h3>KIBEHO SANCTUARY N.J</h3>
 
                     <div class="form-group">
@@ -48,8 +51,8 @@
                         </button>
                     </div>
                 </form>
-                <a href="index.php">
-                    <button id="submit" name="submit" type="submit" style="width: 200px; padding: 5px;">Request Attendance Card
+                <a href="add-christian.php">
+                    <button id="submit" name="submit" type="submit" style="width: 200px; padding: 5px;">Create Account
                         <i class="zmdi zmdi-arrow-right"></i>
                     </button>
                 </a>
@@ -58,3 +61,23 @@
         </div>
     </div>
 </body>
+</html>
+<script>
+  function validation() {
+    var id = document.login.username.value;
+    var ps = document.login.password.value;
+    if (id.length == "" && ps.length == "") {
+      alert("User Name and Password fields are empty");
+      return false;
+    } else {
+      if (id.length == "") {
+        alert("User Name is empty");
+        return false;
+      }
+      if (ps.length == "") {
+        alert("Password field is empty");
+        return false;
+      }
+    }
+  }
+</script>

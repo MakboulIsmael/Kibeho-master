@@ -1,42 +1,42 @@
 <?php
+session_start();
 $title = "Admin Dashboard - CalmGeeks";
 
-include_once("../api/layout.php");
-session_start();
+include_once("../../api/layout.php");
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: ..');
-    exit;
+  header('Location: ..');
+  exit;
 }
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
-    <link rel="shortcut icon" type="image/png" href="../assets/images/kibeho-1.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="utf-8">
+  <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
+  <link rel="shortcut icon" type="image/png" href="../../assets/images/kibeho-1.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
-    <!-- integrating datepicker -->
-    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
+  <!-- integrating datepicker -->
+  <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
 
 
 </head>
 
 <body>
 
-    <div class="wrapper" style="background-image: url('../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
-        <div class="wrapper" style="background-color: #0a5a9780; width: 100%; height: 100%;">
-            <div class="inner">
-                <div class="image-holder">
-                    <img src="../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
+  <div class="wrapper" style="background-image: url('../../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
+    <div class="wrapper" style="background-color: #0a5a9780; width: 100%; height: 100%;">
+      <div class="inner">
+        <div class="image-holder">
+          <img src="../../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
 
-                    <div style="text-align: center; font-weight: bold; font-size: 30px; background-color: #0A5A97;">
-                        <span style="font-weight: bold; font-size: 25px; background-color: #0A5A97; color: #FFFFFF;">ATTENDEES:</span> <span style="font-weight: bold; font-size: 30px; background-color: #0A5A97; color: #FFFFFF;"> <?php echo $countUsers; ?> </span>
-                    </div>
+          <div style="text-align: center; font-weight: bold; font-size: 30px; background-color: #0A5A97;">
+            <span style="font-weight: bold; font-size: 25px; background-color: #0A5A97; color: #FFFFFF;">ATTENDEES:</span> <span style="font-weight: bold; font-size: 30px; background-color: #0A5A97; color: #FFFFFF;"> <?php echo $countUsers; ?> </span>
+          </div>
                     <span style="font-size: 11px;">
 
                         Powered by<a href="http://calmgeeks.com"> Calmgeeks </a>&copy; 2021
@@ -86,27 +86,19 @@ if (!isset($_SESSION['loggedin'])) {
 
                             if (isset($_POST['update'])) {
                                 $id = $_POST['id'];
-                                $mak = $_POST['mak'];
-                                $name = $_POST['name'];
                                 $phone = $_POST['phone'];
                                 $email = $_POST['email'];
-                                $gender = $_POST['gender'];
-                                $country = $_POST['country'];
 
-                                $sql = "UPDATE users set mak='$mak',name='$name',phone='$phone',email='$email',gender='$gender',country='$counrty' WHERE id=$id";
+                                $sql = "UPDATE christian set phone='$phone', email='$email' WHERE id=$id";
                                 $query = $connection->query($sql);
                                 echo "<script>alert('Data Updated Successfully!'); window.location='christians.php'</script>";
                             }
                             @$id = $_GET['id'];
-                            $select = $connection->query("SELECT * FROM users WHERE id='$id'");
+                            $select = $connection->query("SELECT * FROM christian WHERE id='$id'");
                             while ($data = $select->fetch_assoc()) {
                                 $id = $data['id'];
-                                $mak = $data['mak'];
-                                $name = $data['name'];
                                 $phone = $data['phone'];
                                 $email = $data['email'];
-                                $gender = $data['gender'];
-                                $country = $data['country'];
                             }
                             ?>
                             <table border="2" style="margin-top: 120px; margin-left: 150px">
@@ -118,16 +110,6 @@ if (!isset($_SESSION['loggedin'])) {
                                     </tr>
 
                                     <tr>
-                                        <th>ATTENDENCE CODE</th>
-                                        <td><input type="text" name="mak" readonly placeholder="ATTENDENCE CODE~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $mak ?>"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>FULL NAMES</th>
-                                        <td><input type="text" name="name" placeholder="Full NAMES~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $name ?>"></td>
-                                    </tr>
-
-                                    <tr>
                                         <th>PHONE_NUM</th>
                                         <td><input type="text" name="phone" placeholder="Telephone~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $phone ?>"></td>
                                     </tr>
@@ -135,16 +117,6 @@ if (!isset($_SESSION['loggedin'])) {
                                     <tr>
                                         <th>*EMAIL*</th>
                                         <td><input type="text" name="email" placeholder="EMAIL~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $email ?>"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>GENDER</th>
-                                        <td><input type="text" name="gender" placeholder="Gender~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $gender ?>"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>*COUNTRTY*</th>
-                                        <td><input type="text" name="country" placeholder="COUNTRY~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $country ?>"></td>
                                     </tr>
 
                                     </tr>

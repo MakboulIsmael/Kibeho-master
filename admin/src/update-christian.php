@@ -1,42 +1,42 @@
 <?php
+session_start();
 $title = "Admin Dashboard - CalmGeeks";
 
-include_once("../api/layout.php");
-session_start();
+include_once("../../api/layout.php");
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: ..');
-    exit;
+  header('Location: ..');
+  exit;
 }
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
-    <link rel="shortcut icon" type="image/png" href="../assets/images/kibeho-1.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="utf-8">
+  <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
+  <link rel="shortcut icon" type="image/png" href="../../assets/images/kibeho-1.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
-    <!-- integrating datepicker -->
-    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
+  <!-- integrating datepicker -->
+  <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
 
 
 </head>
 
 <body>
 
-    <div class="wrapper" style="background-image: url('../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
-        <div class="wrapper" style="background-color: #0a5a9780; width: 100%; height: 100%;">
-            <div class="inner">
-                <div class="image-holder">
-                    <img src="../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
+  <div class="wrapper" style="background-image: url('../../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
+    <div class="wrapper" style="background-color: #0a5a9780; width: 100%; height: 100%;">
+      <div class="inner">
+        <div class="image-holder">
+          <img src="../../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
 
-                    <div style="text-align: center; font-weight: bold; font-size: 30px; background-color: #0A5A97;">
-                        <span style="font-weight: bold; font-size: 25px; background-color: #0A5A97; color: #FFFFFF;">ATTENDEES:</span> <span style="font-weight: bold; font-size: 30px; background-color: #0A5A97; color: #FFFFFF;"> <?php echo $countUsers; ?> </span>
-                    </div>
+          <div style="text-align: center; font-weight: bold; font-size: 30px; background-color: #0A5A97;">
+            <span style="font-weight: bold; font-size: 25px; background-color: #0A5A97; color: #FFFFFF;">ATTENDEES:</span> <span style="font-weight: bold; font-size: 30px; background-color: #0A5A97; color: #FFFFFF;"> <?php echo $countUsers; ?> </span>
+          </div>
                     <span style="font-size: 11px;">
 
                         Powered by<a href="http://calmgeeks.com"> Calmgeeks </a>&copy; 2021
@@ -89,7 +89,6 @@ if (!isset($_SESSION['loggedin'])) {
                                 $mak = $_POST['mak'];
                                 $nameFirst = $_POST['nameFirst'];
                                 $phone = $_POST['phone'];
-                                $email = $_POST['email'];
                                 $gender = $_POST['gender'];
                                 $date = $_POST['date'];
                                 $service = $_POST['service'];
@@ -102,7 +101,7 @@ if (!isset($_SESSION['loggedin'])) {
                                 $timeCreated = $_POST['timeCreated'];
                                 $timeEdited = $_POST['timeEdited'];
 
-                                $sql = "UPDATE users set mak='$mak',nameFirst='$nameFirst',nameLast='$nameLast',phone='$phone',email='$email',gender='$gender',date='$date',service='$service',diocese='$diocese',country='$country',province='$province',district='$district',sector='$sector',cell='$cell',village='$village',timeCreated='$timeCreated',timeEdited='$timeEdited' WHERE id=$id";
+                                $sql = "UPDATE users set mak='$mak',nameFirst='$nameFirst',nameLast='$nameLast',phone='$phone',gender='$gender',date='$date',service='$service',diocese='$diocese',country='$country',province='$province',district='$district',sector='$sector',cell='$cell',village='$village',timeCreated='$timeCreated',timeEdited='$timeEdited' WHERE id=$id";
                                 $query = $connection->query($sql);
                                 echo "<script>alert('Data Updated Successfully!'); window.location='christians.php'</script>";
                             }
@@ -114,7 +113,6 @@ if (!isset($_SESSION['loggedin'])) {
                                 $nameFirst = $data['nameFirst'];
                                 $nameLast = $data['nameLast'];
                                 $phone = $data['phone'];
-                                $email = $data['email'];
                                 $gender = $data['gender'];
                                 $date = $data['date'];
                                 $service = $data['service'];
@@ -154,11 +152,6 @@ if (!isset($_SESSION['loggedin'])) {
                                     <tr>
                                         <th>*PHONE-NUMBER*</th>
                                         <td><input type="text" name="phone" placeholder="PHONE-NUMBER~~~~~~" class="  text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $phone ?>"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>*EMAIL*</th>
-                                        <td><input type="text" name="email" placeholder="EMAIL~~~~~~" class=" text-align bg-white text-center focus:outline-none border border-gray-400 rounded-md h-10 w-full mx-16" value="<?php echo $email ?>"></td>
                                     </tr>
 
                                     <tr>

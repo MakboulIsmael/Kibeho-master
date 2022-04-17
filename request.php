@@ -1,18 +1,18 @@
 <?php
+include "api/config.php";
+?>
+<?php
 $title = "Admin Dashboard - CalmGeeks";
 
 include_once("api/layout.php");
-session_start();
+@session_start();
+$userid = $_SESSION['id'];
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: ..');
-	exit;
+  header('Location: ..');
+  exit;
 }
 ?>
-<?php
-include "api/configer.php";
-?>
-
 <?php
 
 use LDAP\ResultEntry;
@@ -62,12 +62,6 @@ $mak = GREETING . generateRandomString();
                 </div>
                 <form action="" method="POST">
                     <h3>KIBEHO SANCTUARY N.J <br> Attendee Registration</h3>
-                    <div class="form-group" style="display: none;">
-                        *<i class="zmdi zmdi-account-circle"></i>
-                        <input id="username" name="username" type="text" placeholder="Username" class="form-control" disabled value="<?php echo $username; ?>">
-                        <i class="zmdi zmdi-key"></i>*
-                        <input id="password" name="password" type="password" placeholder="Password" class="form-control" disabled value="<?php echo ""; ?>">
-                    </div>
                     <div class="form-group">
                         *<i class="zmdi zmdi-account"></i>
                         <input id="mak" name="mak" type="text" readonly class="form-control" value="<?php echo $mak; ?>">
@@ -85,7 +79,7 @@ $mak = GREETING . generateRandomString();
                         *<i class="zmdi zmdi-phone"></i>
                         <input id="phone" name="phone" type="tel" placeholder="Phone Number (Telefone)" class="form-control" value="<?php echo $phone; ?>">
                         <i class="zmdi zmdi-email"></i>
-                        <input id="email" name="email" type="email" placeholder="Email Address (Imeli)" class="form-control" value="<?php echo $email; ?>">
+                        <input id="userid" name="userid" type="text" readonly class="form-control" value="<?php echo $userid; ?>">
                     </div>
                     <div class="form-group">
                         *<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
@@ -400,9 +394,9 @@ $mak = GREETING . generateRandomString();
                             <?php echo !empty($village) ? "<option value='$village' selected>$village</option>" : ""; ?>
                         </select>
                     </div>
-                    <div class="text-center" style="color: #FFFFFF; background-color: <?php echo $resultCode1 === 0 ? '#cc0000' : '#03a40b'; ?>; text-align: center; font-size: 20px; border-radius: 10px;"><?php echo $response; ?></div>
+                    <div class="text-center" style="color: #FFFFFF; background-color: <?php echo $resultCode === 0 ? '#cc0000' : '#03a40b'; ?>; text-align: center; font-size: 20px; border-radius: 10px;"><?php echo $response; ?></div>
                     
-                        <button id="submit" name="submit" value="<?php echo $resultCode1; ?>" type="submit" style="width: 200px; padding: 5px;"> <?php echo ($resultCode1 === 1 ? "Request your Attendance Card" : $resultCode === 2) ? "Register Another" : "Register as Attendee"; ?>
+                        <button id="submit" name="submit" value="<?php echo $resultCode; ?>" type="submit" style="width: 200px; padding: 5px;"> <?php echo ($resultCode === 1 ? "Request your Attendance Card" : $resultCode === 2) ? "Register Another" : "Register as Attendee"; ?>
                             <i class="zmdi zmdi-arrow-right"></i>
                         </button>
                 

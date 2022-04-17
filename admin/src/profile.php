@@ -1,8 +1,8 @@
 <?php
+session_start();
 $title = "Admin Dashboard - CalmGeeks";
 
-include_once("../api/layout.php");
-session_start();
+include_once("../../api/layout.php");
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
   header('Location: ..');
@@ -15,24 +15,24 @@ if (!isset($_SESSION['loggedin'])) {
 <head>
   <meta charset="utf-8">
   <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/kibeho-1.jpg">
+  <link rel="shortcut icon" type="image/png" href="../../assets/images/kibeho-1.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
   <!-- integrating datepicker -->
-  <link rel="stylesheet" href="../assets/css/jquery-ui.css">
+  <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
 
 
 </head>
 
 <body>
 
-  <div class="wrapper" style="background-image: url('../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
+  <div class="wrapper" style="background-image: url('../../assets/images/kibeho-3.jpg'); background-position: center; background-size: cover;">
     <div class="wrapper" style="background-color: #0a5a9780; width: 100%; height: 100%;">
       <div class="inner">
         <div class="image-holder">
-          <img src="../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
+          <img src="../../assets/images/kibeho-1.jpg" alt="" style="width: 100%;">
 
           <div style="text-align: center; font-weight: bold; font-size: 30px; background-color: #0A5A97;">
             <span style="font-weight: bold; font-size: 25px; background-color: #0A5A97; color: #FFFFFF;">ATTENDEES:</span> <span style="font-weight: bold; font-size: 30px; background-color: #0A5A97; color: #FFFFFF;"> <?php echo $countUsers; ?> </span>
@@ -88,12 +88,9 @@ if (!isset($_SESSION['loggedin'])) {
 
                   <tr>
                     <th data-priority="1">Id</th>
-                    <th data-priority="2">Attended-code</th>
-                    <th data-priority="3">Names</th>
+                    <th data-priority="2">Profile-Picuter</th>
                     <th data-priority="4">Phone-Number</th>
                     <th data-priority="2">Email</th>
-                    <th data-priority="3">Gender</th>
-                    <th data-priority="4">Country</th>
                     <th class='p-2' colspan='2'> Actions </th>
 
                   </tr>
@@ -101,7 +98,7 @@ if (!isset($_SESSION['loggedin'])) {
                 <tbody>
                   <?php
                   $id = $_SESSION['id'];
-                  $sql = "SELECT * FROM users WHERE id = '{$id}'";
+                  $sql = "SELECT * FROM Christian WHERE id = '{$id}'";
                   $result = $connection->query($sql);
                   if ($result->num_rows > 0) {
                     // output data of each row
@@ -109,12 +106,9 @@ if (!isset($_SESSION['loggedin'])) {
                   ?>
                       <tr>
                         <td><?php echo $data['id']; ?></td>
-                        <td><?php echo $data['mak']; ?></td>
-                        <td><?php echo $data['name']; ?></td>
+                        <td><a href="update-profile-picture.php"><img src="<?php echo $data['name']; ?>"></a></td>
                         <td><?php echo $data['phone']; ?></td>
                         <td><?php echo $data['email']; ?></td>
-                        <td><?php echo $data['gender']; ?></td>
-                        <td><?php echo $data['country']; ?></td>
                         <td><?php echo "<a href=\"update-user.php?id=$data[id]\"><center>📝</center></a>" ?></td>
                         <td><?php echo "<a href=\"v-card.php?id=$data[id]\"><center>Card</center></a>" ?></td>
 
