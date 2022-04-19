@@ -1,17 +1,4 @@
 <?php
-$title = "Admin Dashboard - CalmGeeks";
-
-include_once("layout.php");
-@session_start();
-$userid = $_SESSION["id"];
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-  header('Location: ..');
-  exit;
-}
-?>
-
-<?php
 
 $serverName = "127.0.0.1";
 // $serverUsername = "calmgnjh_kibehosanctuarynj";
@@ -31,13 +18,13 @@ $response = "";
 $resultCode = 0;
 
 $username = "";
-
-$mak = "";
+$password = "";
 $nameFirst = "";
 $nameLast = "";
 $name = "";
 $phone = "";
-$userid = "";
+$phone = "";
+$email = "";
 $gender = "";
 $date = "";
 $service = "";
@@ -53,13 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $submit = mysqli_real_escape_string($connection, !empty($_POST['submit']) ? $_POST['submit'] : "");
     
-    $mak = mysqli_real_escape_string($connection, !empty($_POST['mak']) ? $_POST['mak'] : "");
     $nameFirst = mysqli_real_escape_string($connection, !empty($_POST['nameFirst']) ? $_POST['nameFirst'] : "");
     $nameLast = mysqli_real_escape_string($connection, !empty($_POST['nameLast']) ? $_POST['nameLast'] : "");
     $name = mysqli_real_escape_string($connection, isset($_POST['name']) && !empty($_POST['name']) ? $_POST['name'] : $nameFirst . " " . $nameLast);
     $account = mysqli_real_escape_string($connection, !empty($_POST['account']) ? $_POST['account'] : "Christian");
     $phone = mysqli_real_escape_string($connection, !empty($_POST['phone']) ? $_POST['phone'] : "");
-    $userid = mysqli_real_escape_string($connection, !empty($_POST['userid']) ? $_POST['userid'] : "");
+    $email = mysqli_real_escape_string($connection, !empty($_POST['email']) ? $_POST['email'] : "");
     $gender = mysqli_real_escape_string($connection, !empty($_POST['gender']) ? $_POST['gender'] : "");
     $date = mysqli_real_escape_string($connection, !empty($_POST['date']) ? $_POST['date'] : "");
     $service = mysqli_real_escape_string($connection, !empty($_POST['service']) ? $_POST['service'] : "");
@@ -71,16 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cell = mysqli_real_escape_string($connection, !empty($_POST['cell']) ? $_POST['cell'] : "");
     $village = mysqli_real_escape_string($connection, !empty($_POST['village']) ? $_POST['village'] : "");
     $username = mysqli_real_escape_string($connection, !empty($_POST['username']) ? $_POST['username'] : $name . "-" . $phone . "-" . $gender);
-   
+    $password = mysqli_real_escape_string($connection, !empty($_POST['password']) ? $_POST['password'] : (!empty($phone) ? $phone : "kibeho"));
+
 
     
     
-    if (!empty($username)) {
+    if (!empty($username) && !empty($password)) {
         if (empty($account)) {
             $response = "Account Type required";
-            $resultCode = 0;
-        } else if (empty($mak)) {
-            $response = "Code required";
             $resultCode = 0;
         } else if (empty($nameFirst)) {
             $response = "First Name required";
@@ -94,8 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if (empty($phone)) {
             $response = "Phone Number required";
             $resultCode = 0;
-        } else if (empty($userid)) {
-            $response = "User id required";
+        } else if (false && empty($email)) {
+            $response = "Email Address required";
             $resultCode = 0;
         } else if (empty($gender)) {
             $response = "Gender required";
@@ -135,12 +119,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resultCode = 0;
             
             $username = "";
-            $mak = "";
+            $password = "";
             $nameFirst = "";
             $nameLast = "";
             $name = "";
             $phone = "";
-            $userid = "";
+            $email = "";
             $gender = "";
             $date = "";
             $service = "";
@@ -174,19 +158,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // $password = alnEncrypt($password);
                     $sql = " INSERT INTO users 
-                                (`mak`, `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `userid`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
-                                ('$mak', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$userid', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
+                                (`username`,  `password`,  `account`,  `nameFirst`,  `nameLast`,  `name`,  `phone`,  `email`,  `date`,  `service`,  `gender`,  `diocese`,  `country`,  `province`,  `district`,  `sector`,  `cell`,  `village`) VALUES 
+                                ('$username', '$password', '$account', '$nameFirst', '$nameLast', '$name', '$phone', '$email', '$date', '$service', '$gender', '$diocese', '$country', '$province', '$district', '$sector', '$cell', '$village') ";
                     $resultRegister = $connection->query($sql);
                     
-                    $sql = " SELECT * FROM users WHERE username='$username' ORDER BY id";
+                    $sql = " SELECT * FROM users WHERE username='$username' and password='$password' ORDER BY id";
                     $result = $connection->query($sql);
                     if ($result != null && $result->num_rows > 0) {
                         
-                        
                         $response = "Attendee registered successfully";
-                        header('location: ../admin/christians.php');
                         $resultCode = 1;
-                        
                         
                         while ($row = $result->fetch_assoc()) {
                             if (!isset($isLogout) || $isLogout === true) {
@@ -206,39 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             
-                  // send massage
 
-
-                  if(isset($_POST["submit"])){
-                      
-                    $message = "Dear Sir/Madam, You have all welcome to church Here is the code to use  " .$mak;
-                    $data=array("sender"=>'CMS', "recipients"=> $phone, "message"=> $message,);
-
-                    $url="https://www.intouchsms.co.rw/api/sendsms/.json";
-                    $data=http_build_query($data);
-                    $username="Gentille";
-                    $password="0786112482";
-
-                    $ch=curl_init();
-
-                    curl_setopt($ch,CURLOPT_URL,$url);
-                    curl_setopt($ch,CURLOPT_USERPWD,$username.":".$password);
-                    curl_setopt($ch,CURLOPT_POST,true);
-                    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-                    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
-                    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-
-                    $result=curl_exec($ch);
-                    $httpcode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
-
-                    curl_close($ch);
-
-                    if($httpcode == 200){
-                        echo "Message Sent!";
-                    } else {
-                        echo "Message Not Sent!";
-                    }
-                  }
             
             
         }
@@ -246,7 +195,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($username)) {
             $response = "Username required";
             $resultCode = 0;
-        }else {
+        } else if (empty($password)) {
+            $response = "Password required";
+            $resultCode = 0;
+        } else {
             $response = "Username and Password required";
             $resultCode = 0;
         }
@@ -267,3 +219,4 @@ $femalecount="SELECT count(*) from users WHERE gender='Female'";
 $countMale=($connection->query($malecount)->fetch_array()[0]);
 $countFemale=($connection->query($femalecount)->fetch_array()[0]);
 $error='';
+?>

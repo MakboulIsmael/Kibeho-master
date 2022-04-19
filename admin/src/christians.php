@@ -17,6 +17,7 @@ if (!isset($_SESSION['loggedin'])) {
   <title>KIBEHO SANCTUARY N.J | E-Rinde</title>
   <link rel="shortcut icon" type="image/png" href="../../assets/images/kibeho-1.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/tailwind.css">
   <link rel="stylesheet" href="../../assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="../../assets/css/style.css">
 
@@ -81,10 +82,10 @@ if (!isset($_SESSION['loggedin'])) {
 					<div class="container w-full mt-5 mx-auto px-2" style="margin-top: 100px; margin-left: 17px">
 
 						<!--Card-->
-						<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-xl shadow-lg bg-white">
-							<table id="example" border="1" style="width:100%; ">
-								<tr>
-									<th style="width: 800px;"><a href="../request.php"><button type="" name="" value="" style=" width: 600px;">+ Add New</button></a></th>
+						<div id='recipients' class="p-2 mt-2 lg:mt-0 rounded-xl shadow-lg bg-white">
+							<table id="example" border="1" style="width:100%; border-radius: 12px" class="rounded-full">
+								<tr class="rounded-lg">
+									<th style="width: 800px;"><a href="../../request.php"><button type="" name="" value="" style=" width: 600px;">+ Add New</button></a></th>
 								</tr>
 							</table>
 							<table id="example" border="2" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -111,15 +112,15 @@ if (!isset($_SESSION['loggedin'])) {
 										while ($data = $result->fetch_assoc()) {
 									?>
 											<tr>
-												<td><?php echo $data['mak']; ?></td>
-												<td><?php echo $data['nameFirst']; ?></td>
-												<td><?php echo $data['nameLast']; ?></td>
-												<td><?php echo $data['service']; ?></td>
-												<td><?php echo $data['diocese']; ?></td>
-												<td><?php echo $data['country']; ?></td>
-												<td><?php echo $data['timeCreated']; ?></td>
-												<td><?php echo "<a href=\"update-christian.php?id=$data[id]\">📝</a>" ?></td>
-												<td><?php echo "<a href=\"delete-christian.php?id=$data[id]\"onClick =\"return (are you sure want to)\">⚔" ?></td>
+												<td class="bg-gray-800 text-white"><?php echo $data['mak']; ?></td>
+												<td class="bg-blue-800 text-white"><?php echo $data['nameFirst']; ?></td>
+												<td class="bg-gray-800 text-white"><?php echo $data['nameLast']; ?></td>
+												<td class="bg-blue-800 text-white"><?php echo $data['service']; ?></td>
+												<td class="bg-gray-800 text-white"><?php echo $data['diocese']; ?></td>
+												<td class="bg-blue-800 text-white"><?php echo $data['country']; ?></td>
+												<td class="bg-gray-800 text-white"><?php echo $data['timeCreated']; ?></td>
+												<td class="bg-blue-800 text-white"><?php echo "<a href=\"update-christian.php?id=$data[id]\"><center>📝</center></a>" ?></td>
+												<td class="bg-gray-800 text-white"><?php echo "<a href=\"delete-christian.php?id=$data[id]\"onClick =\"return (are you sure want to)\"><center>⚔</center>" ?></td>
 
 											</tr>
 									<?php

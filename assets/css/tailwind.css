@@ -10,7 +10,12 @@ Document
 /**
 Use a better box model (opinionated).
 */
-
+.bg-orange-600{
+  background-color: #ff6c00;
+}
+.border-orange-600{
+  background-color: #ff6c00;
+}
 *,
 ::before,
 ::after {
@@ -2241,7 +2246,7 @@ video {
 
 .bg-yellow-600 {
   --tw-bg-opacity: 1;
-  background-color: rgba(217, 119, 6, var(--tw-bg-opacity));
+  background-color: rgba(251, 109, 7, var(--tw-bg-opacity));
 }
 
 .bg-yellow-700 {
